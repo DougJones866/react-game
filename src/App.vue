@@ -1,8 +1,9 @@
 <template>
  <h1>React Game</h1>
- <button @click="start" :disabled="isPlaying">Play</button>
- <Block v-if="isPlaying" :delay="delay" @end="endGame"/>
- <!-- <p v-if="showResults">Reaction Time: {{ score }} ms</p> -->
+ <!-- <button @click="start" :disabled="isPlaying">Play</button> -->
+ <h3>Choose A Game Setting</h3>
+ <button @click="easyGame" :disabled="isPlaying" >Easy</button><button @click="hardGame" :disabled="isPlaying">Hard</button>
+ <Block v-if="isPlaying" :delay="delay" :easy="easy" :hard="hard" @end="endGame"/>
  <Results v-if="showResults" :score="score"/>
 </template>
 
@@ -22,6 +23,8 @@ export default {
       delay: null,
       score: null,
       showResults: false,
+      easy: false,
+      hard: false,
     }
   },
   methods: {
@@ -30,9 +33,23 @@ export default {
       this.isPlaying = true
       this.showResults = false
     },
+    easyGame(){
+      this.easy = true
+      this.hard = false
+      this.start()
+      
+
+    },
+    hardGame(){
+      this.hard = true
+      this.easy = false
+      this.start()
+    },
     endGame(reactionTime) {
       this.score = reactionTime
       this.isPlaying = false
+      this.hard = false
+      this.east = false
       this.showResults = true
     },
   }

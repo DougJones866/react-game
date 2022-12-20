@@ -1,15 +1,17 @@
 <template>
-  <div class="block" v-if="showBlock" @click="stopTimer">Click Me</div>
+  <div class="block" v-if="showBlock" @click="stopTimer" :style="blockStyle">Click Me</div>
 </template>
 
 <script>
 export default {
-  props: ["delay"],
+  props: ["delay", "easy", "hard"],
   data() {
     return {
       showBlock: false,
       timer: null,
-      reactionTime: 0
+      reactionTime: 0,
+      
+      
     };
   },
   mounted() {
@@ -27,12 +29,20 @@ export default {
         this.$emit('end', this.reactionTime)
     },
   },
+  computed: {
+    blockStyle() {
+        if (this.easy == true) {
+            return { width: "400px"}
+        } else {
+            return { width: "100px" , height: "100px" ,  background: "red"}
+        }
+    }
+  },
 };
 </script>
 
 <style>
 .block {
-  width: 400px;
   border-radius: 20px;
   background: #0faf87;
   color: white;
